@@ -21,7 +21,11 @@ export async function getActivities(app: FastifyInstance) {
       const trip = await prisma.trip.findUnique({
         where: { id: tripId },
         include: {
-          activities: true,
+          activities: {
+            orderBy: {
+              occurs_at: 'asc',
+            },
+          },
         },
       });
 
@@ -29,7 +33,24 @@ export async function getActivities(app: FastifyInstance) {
         throw new Error('Trip not found');
       }
 
-      return { activities: trip.activities };
+      const differenceInDaysBetweenTripStartsAndEnds = dayjs(trip.ends_at).diff(
+        trip.starts_at,
+        'days'
+      );
+
+      const activities = Array.from({
+        length: differenceInDaysBetweenTripStartsAndEnds + 1,
+      }).map((_, index) => {
+        const date = dayjs(trip.starts_at).add(index, 'days');
+        return {
+          date: date.toDate(),
+          activities: trip.activities.filter((activities) => {
+            return dayjs(activities.occurs_at).isSame(date, 'day');
+          }),
+        };
+      });
+
+      return { activities };
     }
   );
 }
