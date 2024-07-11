@@ -32,7 +32,19 @@ export async function createTrip(app: FastifyInstance) {
       }
 
       const trip = await prisma.trip.create({
-        data: { destination, starts_at, ends_at },
+        data: {
+          destination,
+          starts_at,
+          ends_at,
+          participants: {
+            create: {
+              email: owner_email,
+              name: owner_name,
+              is_owner: true,
+              is_confirmed: true,
+            },
+          },
+        },
       });
 
       const mail = await getMailClient();
