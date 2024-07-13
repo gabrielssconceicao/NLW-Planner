@@ -155,6 +155,8 @@ export function CreateTripPage() {
           createTrip={createTrip}
           setOwnerEmail={setOwnerEmail}
           setOwnerName={setOwnerName}
+          destination={destination}
+          eventStartandEndDates={eventStartandEndDates}
         />
       )}
     </div>
