@@ -29,25 +29,25 @@ export function ConfirmTripModal({
           Para concluir a criação da viagem para{' '}
           <span className='text-zinc-100 font-semibold'>{destination}</span> nas
           datas de
-          <span className='text-zinc-100 font-semibold'></span>
           <span className='text-zinc-100 font-semibold'>
             {' '}
             {eventStartandEndDates?.from &&
-              eventStartandEndDates?.to &&
               format(eventStartandEndDates?.from, 'd')
                 .concat(' de ')
                 .concat(
                   format(eventStartandEndDates?.from, 'MMMM', { locale: ptBR })
                 )
-                .concat(' até ')
-                .concat(format(eventStartandEndDates?.to, 'd'))
+                .concat(' até ')}
+          </span>
+          <span className='text-zinc-100 font-semibold'>
+            {eventStartandEndDates?.to &&
+              format(eventStartandEndDates?.to, 'd')
                 .concat(' de ')
                 .concat(
                   format(eventStartandEndDates?.to, 'MMMM', { locale: ptBR })
                 )
                 .concat(' ')
                 .concat(format(eventStartandEndDates?.to, 'yyyy'))}
-            {/* 16 a 27 de Agosto de 2024 */}
           </span>{' '}
           preecha seus dados abaixo:
         </>
