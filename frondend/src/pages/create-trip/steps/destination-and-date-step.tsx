@@ -35,7 +35,7 @@ export function DestinationAndDateStep({
     eventStartandEndDates &&
     eventStartandEndDates.from &&
     eventStartandEndDates.to
-      ? format(eventStartandEndDates.from, "d 'de' LLLL")
+      ? format(eventStartandEndDates.from, "d 'de' LLL")
           .concat(' até ')
           .concat(format(eventStartandEndDates.to, "d 'de' LLL"))
       : null;
