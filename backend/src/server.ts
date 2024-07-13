@@ -22,7 +22,7 @@ import { env } from './env';
 const app = fastify();
 
 app.register(cors, {
-  origin: '*',
+  origin: true,
 });
 
 app.setValidatorCompiler(validatorCompiler);
@@ -42,7 +42,6 @@ app.register(createInvite);
 app.register(updateTrip);
 app.register(getTripDetails);
 app.register(getParticipant);
-
 app.listen({ port: env.PORT }).then(() => {
   console.log('Server running');
 });
