@@ -1,9 +1,11 @@
-import { MapPin, Calendar, Settings2, ArrowRight, X } from 'lucide-react';
+import { MapPin, Calendar, Settings2, ArrowRight } from 'lucide-react';
 import { Button } from '../../../components/button';
 import { useState } from 'react';
 import { DateRange, DayPicker } from 'react-day-picker';
 import { format } from 'date-fns';
 import 'react-day-picker/dist/style.css';
+import { Input } from '../../../components/input';
+import { Modal } from '../../../components/modal';
 interface DestinationAndDateStepProps {
   isGuestInputOpen: boolean;
   closeGuestInput: () => void;
@@ -43,12 +45,11 @@ export function DestinationAndDateStep({
     <div className='h-16 bg-zinc-900 px-4 rounded-xl flex items-center shadow-shape gap-3'>
       <div className='flex items-center gap-2 flex-1'>
         <MapPin size={22} className='text-zinc-400' />
-        <input
+        <Input
           disabled={isGuestInputOpen}
           onChange={(event) => setDestination(event.target.value)}
           type='text'
           placeholder='Para onde você vai?'
-          className='bg-transparent text-lg placeholder-zinc-400 outline-none flex-1'
         />
       </div>
 
@@ -77,23 +78,16 @@ export function DestinationAndDateStep({
       )}
 
       {isDatePickerOpen && (
-        <div className='fixed inset-0 bg-black/60 flex items-center justify-center'>
-          <div className=' rounded-xl py-5 px-6 shadow-shape bg-zinc-900 space-y-5'>
-            <div className='space-y-2'>
-              <div className='flex items-center justify-between'>
-                <h2 className='text-lg font-semibold'>Selecione a data</h2>
-                <button onClick={closeDatePicker}>
-                  <X className='size-5 text-zinc-400' />
-                </button>
-              </div>
-            </div>
-            <DayPicker
-              mode='range'
-              selected={eventStartandEndDates}
-              onSelect={setEventStartandEndDates}
-            />
-          </div>
-        </div>
+        <Modal
+          closeModal={closeDatePicker}
+          modalTitle='Selecione a data'
+          size='custon'>
+          <DayPicker
+            mode='range'
+            selected={eventStartandEndDates}
+            onSelect={setEventStartandEndDates}
+          />
+        </Modal>
       )}
     </div>
   );

@@ -4,6 +4,7 @@ import { Modal } from '../../components/modal';
 import { DateRange } from 'react-day-picker';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { Input } from '../../components/input';
 
 interface ConfirmTripModalProps {
   closeConfirmTripModal: () => void;
@@ -56,22 +57,20 @@ export function ConfirmTripModal({
       <form onSubmit={createTrip} className='space-y-3'>
         <div className='h-14 px-5 bg-zinc-950 border border-zinc-800 rounded-lg flex items-center gap-2'>
           <User className='size-5 text-zinc-400' />
-          <input
+          <Input
             onChange={(e) => setOwnerName(e.target.value)}
             type='text'
             name='name'
             placeholder='Seu nome completo'
-            className='bg-transparent text-lg placeholder-zinc-400 outline-none flex-1'
           />
         </div>
         <div className='h-14 px-5 bg-zinc-950 border border-zinc-800 rounded-lg flex items-center gap-2'>
           <User className='size-5 text-zinc-400' />
-          <input
+          <Input
             onChange={(e) => setOwnerEmail(e.target.value)}
             type='email'
             name='email'
             placeholder='Seu e-mail pessoal'
-            className='bg-transparent text-lg placeholder-zinc-400 outline-none flex-1'
           />
         </div>
         <Button type='submit' size='full' variant='primary'>
