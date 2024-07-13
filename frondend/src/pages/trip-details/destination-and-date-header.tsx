@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { api } from '../../lib/axios';
 import { format } from 'date-fns';
+import { ChangeDestinationOrDateModal } from './change-destination-or-date-modal';
 
 interface Trip {
   id: string;
@@ -17,6 +18,15 @@ interface Trip {
 export function DestinationAndDateHeader() {
   const { tripId } = useParams();
   const [trip, setTrip] = useState<Trip | undefined>();
+  const [isEditTripModalOpen, setIsEditTripModalOpen] = useState(false);
+
+  function openEditTripModal() {
+    setIsEditTripModalOpen(true);
+  }
+
+  function closeEditTripModal() {
+    setIsEditTripModalOpen(false);
+  }
 
   const displayedDate = trip
     ? format(trip.starts_at, "d 'de' LLL")
@@ -42,11 +52,14 @@ export function DestinationAndDateHeader() {
         </div>
 
         <div className='w-px h-6 bg-zinc-800' />
-        <Button variant='secondary'>
+        <Button variant='secondary' onClick={openEditTripModal}>
           Alterar local e data
           <Settings2 className='size-5' />
         </Button>
       </div>
+      {isEditTripModalOpen && (
+        <ChangeDestinationOrDateModal closeEditTripModal={closeEditTripModal} />
+      )}
     </div>
   );
 }
